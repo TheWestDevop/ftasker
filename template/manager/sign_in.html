@@ -1,0 +1,26 @@
+{% extends "manager/base.html" %}
+
+{% block content %}
+
+  
+
+<form action="/manager/auth/" method="POST">
+    {% if messages %}
+
+{% for message in messages %}
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span align="center"  style="color:rgb(248, 37, 37); font-size:20px;" class="{{message.tags}} mx-auto" >{{message}}</span>
+{% endfor %}
+{% endif %}
+<br><br><br>
+    {% csrf_token %}
+        <label for=""></label>
+        <input type="text" name="username" id="" placeholder="Username" class="email">
+          
+        <label for=""></label>
+        <input type="password" name="password" id="" placeholder="password" class="pass">
+          
+        <button  type="submit" class="pass">login</button>
+          
+      </form>
+{% endblock content %}
+    

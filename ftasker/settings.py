@@ -11,7 +11,9 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+import pymysql
 
+pymysql.install_as_MySQLdb()
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -25,7 +27,7 @@ SECRET_KEY = 'w9n1#*=j6irm$40($o*kn_dhs52&czm_p+y&(08*i=3^fmc!nu'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -58,7 +60,7 @@ ROOT_URLCONF = 'ftasker.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR,"template")],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -76,13 +78,28 @@ WSGI_APPLICATION = 'ftasker.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
+"""DATABASES = {
+   'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'dfck780hfj6aue',
+        'USER' : 'hkxeenroyscoud',
+       'PASSWORD' :'a9d575108037223c414a5f18b9cd9ccc00a38e44a44ef2c9a708913272ea80e6',
+      'HOST' :'ec2-54-163-230-199.compute-1.amazonaws.com',
+       'PORT' : '5432',
+    }
+}"""
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+   'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'ftasker',
+        'USER' : 'root',
+       'PASSWORD' :'',
+      'HOST' :'localhost',
+       'PORT' : '3306',
     }
-}
+ }
+
 
 
 # Password validation
@@ -121,4 +138,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR,'static')
+]
+
+STATICFILES_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'

@@ -2,11 +2,10 @@
 from __future__ import unicode_literals
 
 from django.db import models
-from django.db.models import Q
+#from django.db.models import Q
 import hashlib
 
-# Create your models here.
-from django.utils.timezone import now
+from django.utils import timezone 
 
 # Create your models here.
 class UserType(models.Model):
@@ -23,7 +22,7 @@ class User(models.Model):
       isemailverified  = models.IntegerField(default=0)
       isphoneverified  = models.IntegerField(default=0)
       status           = models.IntegerField(default=0)
-      createdate       = models.DateTimeField(default=now)
+      createdate       = models.DateTimeField(default = timezone.now)
 
 
 class Profile(models.Model):
@@ -38,7 +37,7 @@ class Profile(models.Model):
       city       = models.IntegerField(default=0)
       state      = models.IntegerField(default=0)
       country    = models.IntegerField(default=0)
-      createdate = models.DateTimeField(default=now)
+      createdate = models.DateTimeField(default = timezone.now)
 
 class Category(models.Model):
       id   = models.AutoField(primary_key=True)
@@ -74,7 +73,7 @@ class JobType(models.Model):
 class JobCategory(models.Model):
       id   = models.AutoField(primary_key=True)
       name = models.CharField(max_length=200)
-      image = models.CharField(max_length=200)
+      image = models.ImageField(upload_to='image/', blank=False)
 
 
 class Job(models.Model):
@@ -89,7 +88,7 @@ class Job(models.Model):
        isawarded     = models.IntegerField()
        location      = models.CharField(max_length=500)
        duration      = models.IntegerField(default=1) 
-       startdate     = models.DateTimeField(default=now(),blank=True)
+       startdate     = models.DateTimeField(default = timezone.now)
        enddate       = models.DateTimeField(null=True,blank=True)
        awarddate     = models.DateTimeField(null=True,blank=True)
 
@@ -109,8 +108,7 @@ class Notification(models.Model):
       title         = models.CharField(max_length=200)
       message       = models.TextField()
       isread        = models.IntegerField()
-      createdate    = models.DateTimeField(default=now)
-
+      createdate    = models.DateTimeField(default = timezone.now)
 
 def createEmployer(username,password,secret,email,phone):
       passwordcat = str(password) + str(secret)
@@ -191,4 +189,5 @@ def requestForPayment():
 
 def approvePayment():
       pass
+
 
