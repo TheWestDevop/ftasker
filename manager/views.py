@@ -816,7 +816,7 @@ def login(request):
 
 def logout(request):
     logout(request)
-    return redirect(login)
+    return render(request, 'manager/sign_in.html')
 
 
 def secretGenerator():
