@@ -681,6 +681,8 @@ def createJobApplication(request):
 def editJobApplication(request,id):
     if request.session.has_key('token'):
         jobApplication = JobApplication.objects.get(id=id)
+        jobs = Job.objects.all().order_by("-id")
+        users = User.objects.all().order_by("-id")
         if request.method == "POST":
             jobApplication.jid = request.POST.get('jid')
             jobApplication.uid = request.POST.get('uid')
@@ -688,7 +690,7 @@ def editJobApplication(request,id):
             jobApplication.save()
             return redirect(listJobApplication)
 
-        return render(request, 'manager/edit_jobapplication.html', {"jobApplication":jobApplication})
+        return render(request, 'manager/edit_jobapplication.html', {"jobApplication":jobApplication,'jobs':jobs,'users':users})
      
     else:     
        return redirect('login')

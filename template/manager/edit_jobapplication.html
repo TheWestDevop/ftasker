@@ -1,0 +1,63 @@
+{% extends "manager/securebase.html" %}
+{% block content %}
+<div class="content">
+    <div class="container-fluid">
+        <div class="panel">
+            <div class="panel-heading bg-blue">
+                    <h2 align="center" class="panel-title mx-auto"><b>Edit Job Application </b></h2>
+                    
+                {% if messages %}
+
+                    {% for message in messages %}
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span align="center"  style="color:rgb(248, 37, 37); font-size:20px;" class="{{message.tags}} mx-auto" >{{message}}</span>
+                    {% endfor %}
+                      
+                  {% endif %}
+            </div>
+            <div class="panel-body table-responsive">
+                <br/>
+                <p>
+                        <form method="POST" action="{% url 'edit-job-application' jobapplication.id %}" >
+                            {% csrf_token %}
+                            <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                            <select name="jid" class="form-control" id="">
+                                                   <option value="{{jobapplication.jid}}">{{jobapplication.jid}}</option>
+                                                    <option value="0">Select Job</option>
+                                                        {% for jid in jobs  %}
+                                                        <option value="{{jid.id}}">{{jid.title}}</option>
+                                                        {% endfor %}
+                                                </select>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                            <select name="uid" class="form-control" id="">
+                                                    <option value="{{jobapplication.uid}}">{{jobapplication.uid}}</option>
+                                                    <option value="0">Select User</option>
+                                                        {% for user in users  %}
+                                                        <option value="{{user.id}}">{{user.username}}</option>
+                                                        {% endfor %}
+                                                </select>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                            <label for="">Is Budget Awarded ?</label>
+                                            <option value="{{jobapplication.awarded}}">{{jobapplication.awarded}}</option>
+                                              <select name="awarded" class="form-control" id="">
+                                                      <option value="0">No</option>
+                                                      <option value="1">Yes</option>
+                                                  </select>
+                                      </div>
+                            </div>
+                            
+                             <br>
+
+                             
+
+                            <button type="submit" class="btn btn-block btn-primary">Add <i class="fa fa-plus"></i></button>
+                        </form>
+                    </p>
+            </div>
+        </div>
+    </div>
+   
+  </div>
+{% endblock content %}

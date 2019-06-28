@@ -1,0 +1,61 @@
+{% extends "manager/securebase.html" %}
+{% block content %}
+<div class="content">
+    <div class="container-fluid">
+        <div class="panel">
+            <div class="panel-heading bg-blue">
+                    <h2 align="center" class="panel-title mx-auto"><b>Edit Notification </b></h2>
+                    
+                {% if messages %}
+
+                    {% for message in messages %}
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span align="center"  style="color:rgb(248, 37, 37); font-size:20px;" class="{{message.tags}} mx-auto" >{{message}}</span>
+                    {% endfor %}
+                      
+                  {% endif %}
+            </div>
+            <div class="panel-body table-responsive">
+                <br/>
+                <p>
+                        <form method="POST" action="{% url 'edit-notification' notification.id %}">
+                            {% csrf_token %}
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                        <select name="senderid" class="form-control" id="">
+                                                <option value="{{notification.senderid}}">{{notification.senderid}}</option>
+                                                <option value="0">Select Sender</option>
+                                                    {% for user in users  %}
+                                                    <option value="{{user.id}}">{{user.username}}</option>
+                                                    {% endfor %}
+                                            </select>
+                                          </div>
+                                <div class="form-group col-md-6">
+                                        <select name="uid" class="form-control" id="">
+                                                <option value="{{notification.uid}}">{{notification.uid}}</option>
+                                                <option value="0">Select User</option>
+                                                    {% for user in users  %}
+                                                    <option value="{{user.id}}">{{user.username}}</option>
+                                                    {% endfor %}
+                                            </select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                            <input type="text" class="form-control" value="{{notification.title}}" id="inputEmail4" name="title" placeholder="Title">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                              <textarea name="message" id="" cols="20" rows="3">{{notification.message}}</textarea> 
+                                            </div>
+                            </div>
+                             <br>
+                            
+
+                            <button type="submit" class="btn btn-block btn-primary">Update</button>
+                        </form>
+                    </p>
+            </div>
+        </div>
+    </div>
+    
+  </div>
+{% endblock content %}
