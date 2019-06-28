@@ -78,18 +78,18 @@ WSGI_APPLICATION = 'ftasker.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
-"""DATABASES = {
+DATABASES = {
    'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'dfck780hfj6aue',
-        'USER' : 'hkxeenroyscoud',
-       'PASSWORD' :'a9d575108037223c414a5f18b9cd9ccc00a38e44a44ef2c9a708913272ea80e6',
-      'HOST' :'ec2-54-163-230-199.compute-1.amazonaws.com',
+        'NAME': 'del58760pbfe7d',
+        'USER' : 'ilnsnoczamlyor',
+       'PASSWORD' :'1bb93dd2e18095ef439b512b65c81fe217962d26a120f37f805d010c276f47e6',
+      'HOST' :'ec2-107-21-216-112.compute-1.amazonaws.com',
        'PORT' : '5432',
     }
-}"""
+}
 
-DATABASES = {
+"""DATABASES = {
    'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'ftasker',
@@ -98,7 +98,7 @@ DATABASES = {
       'HOST' :'localhost',
        'PORT' : '3306',
     }
- }
+ }"""
 
 
 
