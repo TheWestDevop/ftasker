@@ -1,1 +1,1 @@
-web: gunicorn chesuapp.wsgi -- log-file -
+web: gunicorn ftasker.wsgi -- log-file -
