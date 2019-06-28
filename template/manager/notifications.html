@@ -1,0 +1,115 @@
+{% extends "manager/securebase.html" %}
+{% block content %}
+<div class="content">
+    <div class="container-fluid">
+        <div class="panel">
+            <div class="panel-heading bg-blue">
+                    <h2 align="center" class="panel-title mx-auto"><b> Notification </b></h2>
+                    
+                <button class="btn btn-primary" data-toggle="modal" data-target="#AddUser">Add New Notification &nbsp;&nbsp; <i class="fa fa-plus"></i></button>
+                {% if messages %}
+
+                    {% for message in messages %}
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span align="center"  style="color:rgb(248, 37, 37); font-size:20px;" class="{{message.tags}} mx-auto" >{{message}}</span>
+                    {% endfor %}
+                      
+                  {% endif %}
+            </div>
+            <div class="panel-body table-responsive">
+                <br/>
+                <table class="table table-bordered table-hover table-striped">
+                    <thead>
+                        <tr class="bg-gray">
+                            <th>Notification Title</th>
+                            <th>Sender ID</th>
+                            <th>User ID</th>
+                            <th>Status</th>
+                            <th>Is Read ?</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                           
+                           {% for con in notifications  %}
+                           <tr>
+                                <td>{{ con.title }}</td>
+                                <td>{{ con.senderid }}</td>
+                                <td>{{ con.uid }}</td>
+                                {% if con.status == 0 %}
+                                  <td>No</td>
+                                {% else %}
+                                  <td>Yes</td>
+                                {% endif %}
+                                {% if con.isread == 0 %}
+                                  <td>No</td>
+                                {% else %}
+                                  <td>Yes</td>
+                                {% endif %}
+                                <td>{{ con.createdate }}</td>
+                                <td><a href="{% url 'edit-notification' con.id %}" class="btn btn-facebook">Edit &nbsp; <i class="fa fa-edit"></i></a>
+                                    <a href="{% url 'delete-notification' con.id %}" class="btn btn-danger">Delete&nbsp; <i class="fa fa-trash"></i></a></td>
+                                
+                            </tr>
+                           {% endfor %}
+                            
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div id="AddUser" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title mx-auto">Add New notification</h4>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        <form method="POST" action="{% url 'create-notification' %}">
+                            {% csrf_token %}
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                        <select name="senderid" class="form-control" id="">
+                                                <option value="0">Select Sender</option>
+                                                    {% for user in users  %}
+                                                    <option value="{{user.id}}">{{user.username}}</option>
+                                                    {% endfor %}
+                                            </select>
+                                          </div>
+                                <div class="form-group col-md-6">
+                                        <select name="uid" class="form-control" id="">
+                                                <option value="0">Select User</option>
+                                                    {% for user in users  %}
+                                                    <option value="{{user.id}}">{{user.username}}</option>
+                                                    {% endfor %}
+                                            </select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                            <input type="text" class="form-control" id="inputEmail4" name="title" placeholder="Title">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                              <textarea name="message" id="" cols="20" rows="3"></textarea> 
+                                            </div>
+                            </div>
+                             <br>
+                            
+
+                            <button type="submit" class="btn btn-block btn-primary">Add <i class="fa fa-plus"></i></button>
+                        </form>
+                    </p>
+                    <div class="modal-footer">
+                            <button type="button" class="btn btn-block btn-danger " data-dismiss="modal">Close</button>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End of Main Content -->
+  </div>
+{% endblock content %}

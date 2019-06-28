@@ -4,9 +4,8 @@
     <div class="container-fluid">
         <div class="panel">
             <div class="panel-heading bg-blue">
-                    <h2 align="center" class="panel-title mx-auto"><b> State </b></h2>
+                    <h2 align="center" class="panel-title mx-auto"><b> Job Type </b></h2>
                     
-                <button class="btn btn-primary" data-toggle="modal" data-target="#AddUser">Add New State &nbsp;&nbsp; <i class="fa fa-plus"></i></button>
                 {% if messages %}
 
                     {% for message in messages %}
@@ -18,20 +17,12 @@
             <div class="panel-body table-responsive">
                 <br/>
                 <p>
-                        <form method="POST" action="{% url 'edit-state' state.id %}">
+                        <form method="POST" action="{% url 'edit-job-type' jobtype.id %}">
                             {% csrf_token %}
                             <div class="form-row">
-                                    <div class="form-group col-md-6">
-                                            <select name="cid" class="form-control" id="">
-                                                <option value="{{state.cid}}">{{state.cid}}</option>
-                                                    <option value="0">Select Country</option>
-                                                        {% for con in countries  %}
-                                                        <option value="{{con.id}}">{{con.name}}</option>
-                                                        {% endfor %}
-                                                </select>
-                                     </div>
+        
                                 <div class="form-group col-md-6">
-                                    <input type="text" class="form-control" id="inputEmail4" value="{{state.name}}" name="name" placeholder="Name">
+                                    <input type="text" class="form-control" value="{{jobtype.name}}" id="inputEmail4" name="name" placeholder="Name">
                                 </div>
                             </div>
                              <br>
@@ -43,7 +34,6 @@
             </div>
         </div>
     </div>
-    <!-- Modal -->
    
   </div>
 {% endblock content %}

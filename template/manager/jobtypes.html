@@ -4,9 +4,9 @@
     <div class="container-fluid">
         <div class="panel">
             <div class="panel-heading bg-blue">
-                    <h2 align="center" class="panel-title mx-auto"><b> Country </b></h2>
+                    <h2 align="center" class="panel-title mx-auto"><b> Job Type </b></h2>
                     
-                <button class="btn btn-primary" data-toggle="modal" data-target="#AddUser">Add New Country &nbsp;&nbsp; <i class="fa fa-plus"></i></button>
+                <button class="btn btn-primary" data-toggle="modal" data-target="#Addjob">Add New job Type &nbsp;&nbsp; <i class="fa fa-plus"></i></button>
                 {% if messages %}
 
                     {% for message in messages %}
@@ -20,16 +20,16 @@
                 <table class="table table-bordered table-hover table-striped">
                     <thead>
                         <tr class="bg-gray">
-                            <th>Country Name</th>
+                            <th>Job Type Name</th>
                         </tr>
                     </thead>
                     <tbody>
                            
-                           {% for con in countries  %}
+                           {% for con in jobtypes  %}
                            <tr>
                                 <td>{{ con.name }}</td>
-                                <td><a href="{% url 'edit-country' con.id %}" class="btn btn-facebook">Edit &nbsp; <i class="fa fa-edit"></i></a>
-                                    <a href="{% url 'delete-country' con.id %}" class="btn btn-danger">Delete&nbsp; <i class="fa fa-trash"></i></a></td>
+                                <td><a href="{% url 'edit-job-type' con.id %}" class="btn btn-facebook">Edit &nbsp; <i class="fa fa-edit"></i></a>
+                                    <a href="{% url 'delete-job-type' con.id %}" class="btn btn-danger">Delete&nbsp; <i class="fa fa-trash"></i></a></td>
                                 
                             </tr>
                            {% endfor %}
@@ -41,17 +41,17 @@
         </div>
     </div>
     <!-- Modal -->
-    <div id="AddUser" class="modal fade" role="dialog">
+    <div id="Addjob" class="modal fade" role="dialog">
         <div class="modal-dialog">
 
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title mx-auto">Add New Country</h4>
+                    <h4 class="modal-title mx-auto">Add New job Type</h4>
                 </div>
                 <div class="modal-body">
                     <p>
-                        <form method="POST" action="{% url 'create-country' %}">
+                        <form method="POST" action="{% url 'create-job-type' %}">
                             {% csrf_token %}
                             <div class="form-row">
         

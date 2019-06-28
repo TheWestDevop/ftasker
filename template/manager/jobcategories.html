@@ -4,9 +4,9 @@
     <div class="container-fluid">
         <div class="panel">
             <div class="panel-heading bg-blue">
-                    <h2 align="center" class="panel-title mx-auto"><b> Country </b></h2>
+                    <h2 align="center" class="panel-title mx-auto"><b> Job Category </b></h2>
                     
-                <button class="btn btn-primary" data-toggle="modal" data-target="#AddUser">Add New Country &nbsp;&nbsp; <i class="fa fa-plus"></i></button>
+                <button class="btn btn-primary" data-toggle="modal" data-target="#Addjob">Add New Job Category &nbsp;&nbsp; <i class="fa fa-plus"></i></button>
                 {% if messages %}
 
                     {% for message in messages %}
@@ -20,16 +20,19 @@
                 <table class="table table-bordered table-hover table-striped">
                     <thead>
                         <tr class="bg-gray">
-                            <th>Country Name</th>
+                            <th>Job Category Name</th>
+                            <th>Job Category Image</th>
                         </tr>
                     </thead>
                     <tbody>
                            
-                           {% for con in countries  %}
+                           {% for con in jobcategories  %}
                            <tr>
                                 <td>{{ con.name }}</td>
-                                <td><a href="{% url 'edit-country' con.id %}" class="btn btn-facebook">Edit &nbsp; <i class="fa fa-edit"></i></a>
-                                    <a href="{% url 'delete-country' con.id %}" class="btn btn-danger">Delete&nbsp; <i class="fa fa-trash"></i></a></td>
+                                <td class="text-center"><img class="img-rounded"
+                                    src="{{ con.image.url }}" width="50" height="50"></td>
+                                <td><a href="{% url 'edit-job-category' con.id %}" class="btn btn-facebook">Edit &nbsp; <i class="fa fa-edit"></i></a>
+                                    <a href="{% url 'delete-job-category' con.id %}" class="btn btn-danger">Delete&nbsp; <i class="fa fa-trash"></i></a></td>
                                 
                             </tr>
                            {% endfor %}
@@ -41,26 +44,31 @@
         </div>
     </div>
     <!-- Modal -->
-    <div id="AddUser" class="modal fade" role="dialog">
+    <div id="Addjob" class="modal fade" role="dialog">
         <div class="modal-dialog">
 
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title mx-auto">Add New Country</h4>
+                    <h4 class="modal-title mx-auto">Add New Job Category</h4>
                 </div>
                 <div class="modal-body">
                     <p>
-                        <form method="POST" action="{% url 'create-country' %}">
+                        <form method="POST" action="{% url 'create-job-category' %}"  enctype="multipart/form-data">
                             {% csrf_token %}
                             <div class="form-row">
-        
                                 <div class="form-group col-md-6">
                                     <input type="text" class="form-control" id="inputEmail4" name="name" placeholder="Name">
                                 </div>
+                                <div class="col-md-6">
+                                        <label for="">Image</label>
+                                        <input type="file"  class="form-control" name="image">
+                                </div>
                             </div>
-                             <br>
                             
+                             <br>
+
+                             
 
                             <button type="submit" class="btn btn-block btn-primary">Add <i class="fa fa-plus"></i></button>
                         </form>

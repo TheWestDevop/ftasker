@@ -72,19 +72,20 @@ def listUser(request):
 def editUser(request,id):
     if request.session.has_key('token'):
         user = User.objects.get(id=id)
+        usertypes = UserType.objects.all().order_by("-id")
         if request.method == "POST":
-            plainpassword= request.POST.get('password')
+            plainpassword = request.POST.get('password')
             password = hashPassword(plainpassword+user.secret)
+            if len(plainpassword) == 0:
+                password = user.password
             user.username = request.POST.get('username')
             user.password = password
             user.usertype = request.POST.get('usertype')
-            user.isemailverified = int(request.POST.get('isemailverified'))
-            user.isphoneverified= int(request.POST.get('isphoneverified'))
-            user.status= int(request.POST.get('status'))
+            
             user.save()
             return redirect(listUser)
 
-        return render(request, 'manager/edit_user.html', {"user":user})
+        return render(request, 'manager/edit_user.html', {"user":user,'usertypes': usertypes})
      
     else:     
        return redirect('login')
@@ -102,7 +103,8 @@ def deleteUser(request,id):
 def listProfile(request):
     if request.session.has_key('token'):
        profiles = Profile.objects.all().order_by("-id")
-       return render(request,'manager/profiles.html',{'profiles': profiles}) 
+       users = User.objects.all().order_by("-id")
+       return render(request,'manager/profiles.html',{'profiles': profiles,'users':users}) 
     else:
        return redirect(login)
 
@@ -273,8 +275,9 @@ def deleteCategory(request,id):
 # subcategory
 def listSubcategory(request):
     if request.session.has_key('token'):
-       Subcategories = Subcategory.objects.all().order_by("-id")
-       return render(request,'manager/subcategories.html',{'Subcategories': Subcategories}) 
+       subcategories = Subcategory.objects.all().order_by("-id")
+       categories = Category.objects.all().order_by("-id")
+       return render(request,'manager/subcategories.html',{'subcategories': subcategories,'categories': categories}) 
     else:
        return redirect(login)
 
@@ -298,13 +301,14 @@ def createSubcategory(request):
 def editSubcategory(request,id):
     if request.session.has_key('token'):
         subcategory = Subcategory.objects.get(id=id)
+        categories = Category.objects.all().order_by("-id")
         if request.method == "POST":
             subcategory.name = request.POST.get('name')
             subcategory.catid = request.POST.get('catid')
             subcategory.save()
             return redirect(listSubcategory)
 
-        return render(request, 'manager/edit_subcategory.html', {"subcategory":subcategory})
+        return render(request, 'manager/edit_subcategory.html', {"subcategory":subcategory,'categories': categories})
      
     else:     
        return redirect('login')
@@ -363,8 +367,9 @@ def deleteCountry(request,id):
 #state
 def listState(request):
     if request.session.has_key('token'):
-       states = State.objects.all().order_by("-id")
-       return render(request,'manager/states.html',{'states': states}) 
+       state = State.objects.all().order_by("-id")
+       countries = Country.objects.all().order_by("-id")
+       return render(request,'manager/states.html',{'states': state,'countries': countries}) 
     else:
        return redirect(login)
 
@@ -412,7 +417,8 @@ def deleteState(request,id):
 def listCity(request):
     if request.session.has_key('token'):
        cities = City.objects.all().order_by("-id")
-       return render(request,'manager/cities.html',{'cities': cities}) 
+       state = State.objects.all().order_by("-id")
+       return render(request,'manager/cities.html',{'cities': cities,'states': state}) 
     else:
        return redirect(login)
 
@@ -494,9 +500,9 @@ def editJobType(request,id):
 
 def deleteJobType(request,id):
      if request.session.has_key('token'):
-          usertype =UserType.objects.get(id=id)
-          usertype.delete()
-          return redirect(listUserType) 
+          jobtype =JobType.objects.get(id=id)
+          jobtype.delete()
+          return redirect(listJobType) 
      else:
             return redirect(login) 
 
@@ -537,6 +543,8 @@ def editJobCategory(request,id):
             image = request.FILES['image']
             fs = FileSystemStorage()
             filename = fs.save(image.name.strip(), image)
+            if len(image) == 0:
+                filename = jobcategory.image
             jobcategory.image = filename
             jobcategory.save()
             return redirect(listJobCategory)
@@ -558,7 +566,10 @@ def deleteJobCategory(request,id):
 def listJob(request):
     if request.session.has_key('token'):
        jobs = Job.objects.all().order_by("-id")
-       return render(request,'manager/jobs.html',{'jobs':jobs}) 
+       jobtypes = JobType.objects.all().order_by("-id")
+       jobcategories = JobCategory.objects.all().order_by("-id")
+       users  = User.objects.all().order_by("-id")
+       return render(request,'manager/jobs.html',{'jobs':jobs,'users':users,'jobtypes':jobtypes,'jobcategories':jobcategories,}) 
     else:
        return redirect(login)
 
@@ -605,6 +616,9 @@ def createJob(request):
 def editJob(request,id):
     if request.session.has_key('token'):
         job = Job.objects.get(id=id)
+        jobtypes = JobType.objects.all().order_by("-id")
+        jobcategories = JobCategory.objects.all().order_by("-id")
+        users  = User.objects.all().order_by("-id")
         if request.method == "POST":
             job.uid = request.POST.get('uid')
             job.jbtype = request.POST.get('jbtype')
@@ -622,7 +636,7 @@ def editJob(request,id):
             job.save()
             return redirect(listJob)
 
-        return render(request, 'manager/edit_job.html', {"job":job})
+        return render(request, 'manager/edit_job.html', {"job":job,'users':users,'jobtypes':jobtypes,'jobcategories':jobcategories,})
      
     else:     
        return redirect('login')
@@ -639,7 +653,9 @@ def deleteJob(request,id):
 def listJobApplication(request):
     if request.session.has_key('token'):
        jobApplications = JobApplication.objects.all().order_by("-id")
-       return render(request,'manager/jobapplications.html',{'jobApplications': jobApplications}) 
+       jobs = Job.objects.all().order_by("-id")
+       users = User.objects.all().order_by("-id")
+       return render(request,'manager/jobapplications.html',{'jobApplications': jobApplications,'jobs':jobs,'users':users}) 
     else:
        return redirect(login)
 
@@ -690,7 +706,8 @@ def deleteJobApplication(request,id):
 def listNotification(request):
     if request.session.has_key('token'):
        notifications = Notification.objects.all().order_by("-id")
-       return render(request,'manager/notifications.html',{'notifications': notifications}) 
+       users = User.objects.all().order_by("-id")
+       return render(request,'manager/notifications.html',{'notifications': notifications,'users':users}) 
     else:
        return redirect(login)
 
@@ -700,7 +717,7 @@ def createNotification(request):
         if request.method == "POST":
             senderid      = request.POST.get('senderid')
             uid           = request.POST.get('uid')
-            status        = request.POST.get('status')
+           # status        = request.POST.get('status')
             title         = request.POST.get('title')
             message       = request.POST.get('message')
             isread        = request.POST.get('isread')
@@ -709,10 +726,10 @@ def createNotification(request):
             Notification.objects.create(
                senderid=senderid,
                uid=uid,
-               status=status,
+               status=0,
                title=title,
                message=message,
-               isread=isread
+               isread=0
                
             )
             return redirect(listNotification)

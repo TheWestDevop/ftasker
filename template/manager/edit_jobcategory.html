@@ -4,7 +4,7 @@
     <div class="container-fluid">
         <div class="panel">
             <div class="panel-heading bg-blue">
-                    <h2 align="center" class="panel-title mx-auto"><b>Edit Country </b></h2>
+                    <h2 align="center" class="panel-title mx-auto"><b> Job Category </b></h2>
                     
                 {% if messages %}
 
@@ -17,16 +17,21 @@
             <div class="panel-body table-responsive">
                 <br/>
                 <p>
-                        <form method="POST" action="{% url 'edit-country' country.id %}">
+                        <form method="POST" action="{% url 'edit-job-category' jobcategory.id %}"  enctype="multipart/form-data">
                             {% csrf_token %}
                             <div class="form-row">
-        
                                 <div class="form-group col-md-6">
-                                    <input type="text" class="form-control" value="{{country.name}}" id="inputEmail4" name="name" placeholder="Name">
+                                    <input type="text" class="form-control" value="{{jobcategory.name}}" id="inputEmail4" name="name" placeholder="Name">
+                                </div>
+                                <div class="col-md-6">
+                                        <label for="">Image</label>
+                                        <input type="file"  class="form-control" value="{{jobcategory.image}}"  name="image">
                                 </div>
                             </div>
-                             <br>
                             
+                             <br>
+
+                             
 
                             <button type="submit" class="btn btn-block btn-primary">Update</button>
                         </form>
@@ -34,6 +39,6 @@
             </div>
         </div>
     </div>
-  
+    
   </div>
 {% endblock content %}

@@ -4,9 +4,8 @@
     <div class="container-fluid">
         <div class="panel">
             <div class="panel-heading bg-blue">
-                    <h2 align="center" class="panel-title mx-auto"><b> Job </b></h2>
+                    <h2 align="center" class="panel-title mx-auto"><b>Edit Job </b></h2>
                     
-                <button class="btn btn-primary" data-toggle="modal" data-target="#AddUser">Add New Job &nbsp;&nbsp; <i class="fa fa-plus"></i></button>
                 {% if messages %}
 
                     {% for message in messages %}
@@ -17,73 +16,13 @@
             </div>
             <div class="panel-body table-responsive">
                 <br/>
-                <table class="table table-bordered table-hover table-striped">
-                    <thead>
-                        <tr class="bg-gray">
-                            <th>User ID</th>
-                            <th>Job Type</th>
-                            <th>Job Categories</th>
-                            <th>Title</th>
-                            <th>Description</th>
-                            <th>Budget Min</th>
-                            <th>Budget Max</th>
-                            <th>Awarded</th>
-                            <th>Location</th>
-                            <th>Duration</th>
-                            <th>Start Date</th>
-                            <th>End Date</th>
-                            <th>Award Date</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                           
-                           {% for job in jobs  %}
-                           <tr>
-                                <td>{{ job.uid }}</td>
-                                <td>{{ job.jbtype }}</td>
-                                <td>{{ job.jbcat }}</td>
-                                <td>{{ job.title }}</td>
-                                <td>{{ job.description }}</td>
-                                <td>{{ job.budgetmin }}</td>
-                                <td>{{ job.budgetmax }}</td>
-                                {% if job.isawarded == 0 %}
-                                <td>No</td>
-                                {% else %}
-                                  <td>Yes</td>
-                                {% endif %}
-                                <td>{{ job.location }}</td>
-                                <td>{{ job.duration }}</td>
-                                <td>{{ job.startdate }}</td>
-                                <td>{{ job.enddate}}</td>
-                                <td>{{ job.awarddate }}</td>
-                                <td><a href="{% url 'edit-job' job.id %}" class="btn btn-facebook">Edit &nbsp; <i class="fa fa-edit"></i></a>
-                                    <a href="{% url 'delete-job' job.id %}" class="btn btn-danger">Delete&nbsp; <i class="fa fa-trash"></i></a></td>
-                                
-                            </tr>
-                           {% endfor %}
-                            
-
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-    <!-- Modal -->
-    <div id="AddUser" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title mx-auto">Add New Job</h4>
-                </div>
-                <div class="modal-body">
-                    <p>
-                        <form method="POST" action="{% url 'create-job' %}">
+                <p>
+                        <form method="POST" action="{% url 'edit-job' job.id %}">
                             {% csrf_token %}
                             <div class="form-row">
                                     <div class="form-group col-md-6">
                                             <select name="uid" class="form-control" id="">
+                                                    <option value="{{job.uid}}">{{job.uid}}</option>
                                                     <option value="0">Select User</option>
                                                         {% for user in users  %}
                                                         <option value="{{user.id}}">{{user.username}}</option>
@@ -92,6 +31,7 @@
                                     </div>
                                 <div class="form-group col-md-6">
                                         <select name="jbtype" class="form-control" id="">
+                                                <option value="{{job.jbtype}}">{{job.jbtype}}</option>
                                                 <option value="0">Select Job Type</option>
                                                     {% for jb in jobtypes  %}
                                                     <option value="{{jb.id}}">{{jb.name}}</option>
@@ -102,6 +42,7 @@
                             <div class="form-row">
                                     <div class="form-group col-md-6">
                                             <select name="jbcat" class="form-control" id="">
+                                                    <option value="{{job.jbcat}}">{{job.jbcat}}</option>
                                                     <option value="0">Select Job Category</option>
                                                         {% for jbcat in jobcategories  %}
                                                         <option value="{{jbcat.id}}">{{jbcat.name}}</option>
@@ -109,24 +50,25 @@
                                                 </select>
                                     </div>
                                 <div class="form-group col-md-6">
-                                        <input type="text" class="form-control" id="inputEmail4" name="title" placeholder="Title">
+                                        <input type="text" class="form-control" value="{{job.title}}" id="inputEmail4" name="title" placeholder="Title">
                                 </div>
                             </div>
                             <div class="form-row">
                                     <div class="form-group col-md-6">
-                                        <input type="text" class="form-control" id="inputEmail4" name="description" placeholder="Description">
+                                        <input type="text" class="form-control" id="inputEmail4" value="{{job.description}}" name="description" placeholder="Description">
                                     </div>
                                 <div class="form-group col-md-6">
-                                        <input type="text" class="form-control" id="inputEmail4" name="budgetmin" placeholder="Budget Min">
+                                        <input type="text" class="form-control" id="inputEmail4" value="{{job.budgetmin}}" name="budgetmin" placeholder="Budget Min">
                                 </div>
                             </div>
                             <div class="form-row">
                                     <div class="form-group col-md-6">
-                                        <input type="text" class="form-control" id="inputEmail4" name="budgetmax" placeholder="Budget Max">
+                                        <input type="text" class="form-control" id="inputEmail4" value="{{job.budgetmax}}" name="budgetmax" placeholder="Budget Max">
                                     </div>
                                 <div class="form-group col-md-6">
                                       <label for="">Is Budget Awarded ?</label>
                                         <select name="isawarded" class="form-control" id="">
+                                                <option value="{{job.isawarded}}">{{job.isawarded}}</option>
                                                 <option value="0">No</option>
                                                 <option value="1">Yes</option>
                                             </select>
@@ -134,40 +76,36 @@
                             </div>
                             <div class="form-row">
                                     <div class="form-group col-md-6">
-                                        <input type="text" class="form-control" id="inputEmail4" name="location" placeholder="Location">
+                                        <input type="text" class="form-control" id="inputEmail4" value="{{job.location}}" name="location" placeholder="Location">
                                     </div>
                                 <div class="form-group col-md-6">
-                                        <input type="text" class="form-control" id="inputEmail4" name="duration" placeholder="Duration">
+                                        <input type="text" class="form-control" id="inputEmail4" value="{{job.duration}}" name="duration" placeholder="Duration">
                                 </div>
                             </div>
                             <div class="form-row">
                                     
                                     <div class="form-group col-md-4">
                                             <label for="">Start Date</label>
-                                        <input type="date" class="form-control" id="inputEmail4" name="startdate" placeholder="Start Date">
+                                        <input type="date" class="form-control" id="inputEmail4" value="{{job.startdate}}" name="startdate" placeholder="Start Date">
                                     </div>
                                 <div class="form-group col-md-4">
                                         <label for="">End Date</label>
-                                        <input type="date" class="form-control" id="inputEmail4" name="enddate" placeholder="End Date">
+                                        <input type="date" class="form-control" id="inputEmail4" value="{{job.enddate}}" name="enddate" placeholder="End Date">
                                 </div>
                                 <div class="form-group col-md-4">
                                         <label for="">Award Date</label>
-                                        <input type="date" class="form-control" id="inputEmail4" name="awarddate" placeholder="Award Date">
+                                        <input type="date" class="form-control" id="inputEmail4" value="{{job.awarddate}}" name="awarddate" placeholder="Award Date">
                                 </div>
                             </div>
                              <br>
                             
 
-                            <button type="submit" class="btn btn-block btn-primary">Add <i class="fa fa-plus"></i></button>
+                            <button type="submit" class="btn btn-block btn-primary">Update</button>
                         </form>
                     </p>
-                    <div class="modal-footer">
-                            <button type="button" class="btn btn-block btn-danger " data-dismiss="modal">Close</button>
-                        </div>
-                </div>
             </div>
         </div>
     </div>
-    <!-- End of Main Content -->
+ 
   </div>
 {% endblock content %}

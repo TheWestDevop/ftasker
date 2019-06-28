@@ -1,0 +1,142 @@
+{% extends "manager/securebase.html" %}
+{% block content %}
+<div class="content">
+    <div class="container-fluid">
+        <div class="panel">
+            <div class="panel-heading bg-blue">
+                    <h2 align="center" class="panel-title mx-auto"><b> Profile </b></h2>
+                    
+                <button class="btn btn-primary" data-toggle="modal" data-target="#AddUser">Add New Profile &nbsp;&nbsp; <i class="fa fa-plus"></i></button>
+                {% if messages %}
+
+                    {% for message in messages %}
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span align="center"  style="color:rgb(248, 37, 37); font-size:20px;" class="{{message.tags}} mx-auto" >{{message}}</span>
+                    {% endfor %}
+                      
+                  {% endif %}
+            </div>
+            <div class="panel-body table-responsive">
+                <br/>
+                <table class="table table-bordered table-hover table-striped">
+                    <thead>
+                        <tr class="bg-gray">
+                            <th>User ID</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Email</th>
+                            <th>Telephone</th>
+                            <th>Address</th>
+                            <th>Address 2</th>
+                            <th>City</th>
+                            <th>State</th>
+                            <th>Country</th>
+                            <th>Date Registered</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                           
+                           {% for profile in profiles  %}
+                           <tr>
+                                <td>{{ profile.uid }}</td>
+                                <td>{{ profile.firstname }}</td>
+                                <td>{{ profile.lastname }}</td>
+                                <td>{{ profile.email }}</td>
+                                <td>{{ profile.telephone }}</td>
+                                <td>{{ profile.address }}</td>
+                                <td>{{ profile.address2 }}</td>
+                                <td>{{ profile.city }}</td>
+                                <td>{{ profile.state }}</td>
+                                <td>{{ profile.country }}</td>
+                                <td>{{ profile.createdate }}</td>
+                                <td><a href="{% url 'edit-profile' profile.id %}" class="btn btn-facebook">Edit &nbsp; <i class="fa fa-edit"></i></a>
+                                    <a href="{% url 'delete-profile' profile.id %}" class="btn btn-danger">Delete&nbsp; <i class="fa fa-trash"></i></a></td>
+                                
+                            </tr>
+                           {% endfor %}
+                            
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div id="AddUser" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title mx-auto">Add New Profile</h4>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        <form method="POST" action="{% url 'create-profile'%}">
+                            {% csrf_token %}
+                            <div class="form-row">
+                                    <div class="form-group col-md-12">
+                                        <select name="uid" class="form-control" id="">
+                                            <option value="0">------------------------------------------------Select User----------------------------------------------------</option>
+                                                {% for user in users  %}
+                                                <option value="{{user.id}}">{{user.username}}</option>
+                                                {% endfor %}
+                                        </select>
+                                        </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    
+                                    <input type="text" class="form-control" id="inputEmail4" name="firstname" placeholder="First Name">
+                                </div>
+                                <div class="form-group col-md-6">
+                                   
+                                    <input type="text" class="form-control" id="inputEmail4" name="lastname" placeholder="Last Name">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    
+                                    <input type="email" class="form-control" id="inputEmail4" name="email" placeholder="Email">
+                                </div>
+                                <div class="form-group col-md-6">
+                                   
+                                    <input type="text" class="form-control" id="inputEmail4" name="telephone" placeholder="Telephone">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <input type="text" class="form-control" id="inputEmail4" name="address" placeholder="Address">
+                                </div>
+                                <div class="form-group col-md-6">
+                                        
+                                        <input type="text" class="form-control" id="inputEmail4" name="address2" placeholder="Address2">
+                                    </div>
+                            </div>
+                            <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                            <input type="text" class="form-control" id="inputEmail4" name="city" placeholder="City">
+                                        </div>
+                                <div class="form-group col-md-4">
+                                    
+                                    <input type="text" class="form-control" id="inputEmail4" name="state" placeholder="State">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    
+                                    <input type="text" class="form-control" id="inputEmail4" name="country" placeholder="Country">
+                                </div>
+                            </div> <br>
+                            
+
+                            <button type="submit" class="btn btn-block btn-primary">Add <i class="fa fa-plus"></i></button>
+                        </form>
+                    </p>
+                    <div class="modal-footer">
+                            <button type="button" class="btn btn-block btn-danger " data-dismiss="modal">Close</button>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End of Main Content -->
+  </div>
+{% endblock content %}

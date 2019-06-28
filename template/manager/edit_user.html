@@ -1,0 +1,52 @@
+{% extends "manager/securebase.html" %}
+{% block content %}
+<div class="content">
+    <div class="container-fluid">
+        <div class="panel">
+            <div class="panel-heading bg-blue">
+                    <h2 align="center" class="panel-title mx-auto"><b>Edit User </b></h2>
+                    
+              {% if messages %}
+
+                    {% for message in messages %}
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span align="center"  style="color:rgb(248, 37, 37); font-size:20px;" class="{{message.tags}} mx-auto" >{{message}}</span>
+                    {% endfor %}
+                      
+                  {% endif %}
+            </div>
+            <div class="panel-body table-responsive">
+                <br/>
+                <p>
+                        <form method="POST" action="{% url 'edit-user' user.id %}">
+                            {% csrf_token %}
+                            
+                                <div>
+                                    <label for="inputEmail4">Username</label>
+                                    <input type="text" class="form-control" id="inputEmail4" value="{{user.username}}" name="username"  placeholder="User Name">
+                                </div>
+                                
+                                    <label for="inputPassword4">User Type</label>
+                                    <select name="usertype" id="" class="form-control">
+                                        <option value="{{user.id}}">{{user.usertype}}</option>
+                                        <option value="0">-----------------------------------------select usertype----------------------------------------------------</option>
+                                        {% for usertype in usertypes  %}
+                                      <option value="{{usertype.id}}">{{usertype.name}}</option>
+                                      {% endfor %}
+                                    </select>
+                                
+                            
+                                
+                                    
+                                    <input type="password" class="form-control" id="inputPassword4" name="password"  placeholder="Change Password">
+                                <br>
+                            
+
+                            <button type="submit" class="btn btn-block btn-primary">Update</button>
+                        </form>
+                    </p>
+            </div>
+        </div>
+    </div>
+    
+  </div>
+{% endblock content %}

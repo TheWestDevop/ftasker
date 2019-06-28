@@ -1,0 +1,85 @@
+{% extends "manager/securebase.html" %}
+{% block content %}
+<div class="content">
+    <div class="container-fluid">
+        <div class="panel">
+            <div class="panel-heading bg-blue">
+                    <h2 align="center" class="panel-title mx-auto"><b>Edit Profile </b></h2>
+                    
+                {% if messages %}
+
+                    {% for message in messages %}
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span align="center"  style="color:rgb(248, 37, 37); font-size:20px;" class="{{message.tags}} mx-auto" >{{message}}</span>
+                    {% endfor %}
+                      
+                  {% endif %}
+            </div>
+            <div class="panel-body table-responsive">
+                <br/>
+                <p>
+                        <form method="POST" action="{% url 'edit-profile' profile.id %}">
+                            {% csrf_token %}
+                            <div class="form-row">
+                                    <div class="form-group col-md-12">
+                                        <select name="uid" class="form-control" id="">
+                                            <option value="{{profile.uid}}">{{profile.uid}}</option>
+                                            <option value="0">------------------------------------------------Select User----------------------------------------------------</option>
+                                                {% for user in users  %}
+                                                <option value="{{user.id}}">{{user.username}}</option>
+                                                {% endfor %}
+                                        </select>
+                                        </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    
+                                    <input type="text" class="form-control" id="inputEmail4" value="{{profile.firstname}}" name="firstname" placeholder="First Name">
+                                </div>
+                                <div class="form-group col-md-6">
+                                   
+                                    <input type="text" class="form-control" id="inputEmail4" value="{{profile.lastname}}" name="lastname" placeholder="Last Name">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    
+                                    <input type="email" class="form-control" id="inputEmail4" value="{{profile.email}}" name="email" placeholder="Email">
+                                </div>
+                                <div class="form-group col-md-6">
+                                   
+                                    <input type="text" class="form-control" id="inputEmail4" value="{{profile.telephone}}" name="telephone" placeholder="Telephone">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <input type="text" class="form-control" id="inputEmail4" value="{{profile.address}}" name="address" placeholder="Address">
+                                </div>
+                                <div class="form-group col-md-6">
+                                        
+                                        <input type="text" class="form-control" id="inputEmail4" value="{{profile.address2}}" name="address2" placeholder="Address2">
+                                    </div>
+                            </div>
+                            <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                            <input type="text" class="form-control" id="inputEmail4" value="{{profile.city}}" name="city" placeholder="City">
+                                        </div>
+                                <div class="form-group col-md-4">
+                                    
+                                    <input type="text" class="form-control" id="inputEmail4" value="{{profile.state}}" name="state" placeholder="State">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    
+                                    <input type="text" class="form-control" id="inputEmail4" value="{{profile.country}}" name="country" placeholder="Country">
+                                </div>
+                            </div> <br>
+                            
+
+                            <button type="submit" class="btn btn-block btn-primary">Update</button>
+                        </form>
+                    </p>
+            </div>
+        </div>
+    </div>
+  
+  </div>
+{% endblock content %}

@@ -1,57 +1,88 @@
 <div class="sidebar-wrapper">
     <ul class="nav">
       <li class="nav-item active  ">
-        <a class="nav-link" href="./dashboard.html">
-          <i class="material-icons">dashboard</i>
-          <p>Dashboard</p>
+        <a class="nav-link" href="{% url 'list-user'%}">
+          <i class="material-icons">assignment_ind</i>
+          <p>User</p>
         </a>
       </li>
-      <li class="nav-item ">
-        <a class="nav-link" href="./user.html">
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'list-profile'%}">
           <i class="material-icons">person</i>
-          <p>User Profile</p>
+          <p>Profile</p>
         </a>
       </li>
-      <li class="nav-item ">
-        <a class="nav-link" href="./tables.html">
-          <i class="material-icons">content_paste</i>
-          <p>Table List</p>
-        </a>
-      </li>
-      <li class="nav-item ">
-        <a class="nav-link" href="./typography.html">
+      <li class="nav-item active ">
+        <a class="nav-link" href="{% url 'list-category'%}">
           <i class="material-icons">library_books</i>
-          <p>Typography</p>
+          <p>Category</p>
         </a>
       </li>
-      <li class="nav-item ">
-        <a class="nav-link" href="./icons.html">
-          <i class="material-icons">bubble_chart</i>
-          <p>Icons</p>
+      <li class="nav-item active">
+          <a class="nav-link" href="{% url 'list-sub-category'%}">
+            <i class="material-icons">library_books</i>
+            <p>Sub Category</p>
+          </a>
+        </li>
+        <li class="nav-item active ">
+            <a class="nav-link" href="{% url 'list-country'%}">
+              <i class="material-icons">library_books</i>
+              <p>Country</p>
+            </a>
+          </li>
+          <li class="nav-item active">
+              <a class="nav-link" href="{% url 'list-state'%}">
+                <i class="material-icons">library_books</i>
+                <p>State</p>
+              </a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'list-city'%}">
+                  <i class="material-icons">library_books</i>
+                  <p>City</p>
+                </a>
+              </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'list-job'%}">
+          <i class="material-icons">library_books</i>
+          <p>Job</p>
         </a>
       </li>
-      <li class="nav-item ">
-        <a class="nav-link" href="./map.html">
-          <i class="material-icons">location_ons</i>
-          <p>Maps</p>
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'list-job-type'%}">
+          <i class="material-icons">library_books</i>
+          <p>Job Type</p>
         </a>
       </li>
-      <li class="nav-item ">
-        <a class="nav-link" href="./notifications.html">
+      <li class="nav-item active">
+          <a class="nav-link" href="{% url 'list-job-category'%}">
+            <i class="material-icons">library_books</i>
+            <p>Job Category</p>
+          </a>
+        </li>
+      <li class="nav-item active ">
+        <a class="nav-link" href="{% url 'list-job-application'%}">
+          <i class="material-icons">library_books</i>
+          <p>Job Application</p>
+        </a>
+      </li>
+      <li class="nav-item active ">
+          <a class="nav-link" href="{% url 'list-usertype'%}">
+            <i class="material-icons">library_books</i>
+            <p>User Type</p>
+          </a>
+        </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'list-notification'%}">
           <i class="material-icons">notifications</i>
           <p>Notifications</p>
         </a>
       </li>
-      <li class="nav-item ">
-        <a class="nav-link" href="./rtl.html">
-          <i class="material-icons">language</i>
-          <p>RTL Support</p>
-        </a>
-      </li>
-      <li class="nav-item active-pro ">
-        <a class="nav-link" href="./upgrade.html">
-          <i class="material-icons">unarchive</i>
-          <p>Upgrade to PRO</p>
+      
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'log-out'%}">
+          <i class="material-icons">exit_to_app</i>
+          <p>Log Out</p>
         </a>
       </li>
     </ul>

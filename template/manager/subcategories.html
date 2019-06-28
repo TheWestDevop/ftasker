@@ -1,0 +1,86 @@
+{% extends "manager/securebase.html" %}
+{% block content %}
+<div class="content">
+    <div class="container-fluid">
+        <div class="panel">
+            <div class="panel-heading bg-blue">
+                    <h2 align="center" class="panel-title mx-auto"><b>Sub Category </b></h2>
+                    
+                <button class="btn btn-primary" data-toggle="modal" data-target="#AddUser">Add New Sub Category &nbsp;&nbsp; <i class="fa fa-plus"></i></button>
+                {% if messages %}
+
+                    {% for message in messages %}
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span align="center"  style="color:rgb(248, 37, 37); font-size:20px;" class="{{message.tags}} mx-auto" >{{message}}</span>
+                    {% endfor %}
+                      
+                  {% endif %}
+            </div>
+            <div class="panel-body table-responsive">
+                <br/>
+                <table class="table table-bordered table-hover table-striped">
+                    <thead>
+                        <tr class="bg-gray">
+                            <th>Category ID</th>
+                            <th>Sub Category Name</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                           
+                           {% for subcat in subcategories  %}
+                           <tr>
+                                <td>{{ subcat.catid }}</td>
+                                <td>{{ subcat.name }}</td>
+                                <td><a href="{% url 'edit-sub-category' subcat.id %}" class="btn btn-facebook">Edit &nbsp; <i class="fa fa-edit"></i></a>
+                                    <a href="{% url 'delete-sub-category' subcat.id %}" class="btn btn-danger">Delete&nbsp; <i class="fa fa-trash"></i></a></td>
+                                
+                            </tr>
+                           {% endfor %}
+                            
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div id="AddUser" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title mx-auto">Add New Sub Category</h4>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        <form method="POST" action="{% url 'create-sub-category' %}">
+                            {% csrf_token %}
+                            <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                    <select name="catid" class="form-control" id="">
+                                            <option value="0">Select Category</option>
+                                                {% for cat in categories  %}
+                                                <option value="{{cat.id}}">{{cat.name}}</option>
+                                                {% endfor %}
+                                        </select>
+                                    </div>
+                                <div class="form-group col-md-6">
+                                    <input type="text" class="form-control" id="inputEmail4" name="name" placeholder="Name">
+                                </div>
+                            </div>
+                             <br>
+                            
+
+                            <button type="submit" class="btn btn-block btn-primary">Add <i class="fa fa-plus"></i></button>
+                        </form>
+                    </p>
+                    <div class="modal-footer">
+                            <button type="button" class="btn btn-block btn-danger " data-dismiss="modal">Close</button>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End of Main Content -->
+  </div>
+{% endblock content %}
