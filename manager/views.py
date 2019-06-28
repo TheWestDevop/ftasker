@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 
 from models.models import *
 from django.db.models import Sum, Count, Case, When
-from django.contrib.auth import logout
+from django.contrib.auth import logout 
 from django.contrib import messages
 from django.core.exceptions import ObjectDoesNotExist
 from django.conf import settings
@@ -814,7 +814,7 @@ def login(request):
     return render(request, 'manager/sign_in.html')
 
 
-def logout(request):
+def check_out(request):
     logout(request)
     return render(request, 'manager/sign_in.html')
 

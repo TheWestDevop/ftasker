@@ -71,7 +71,7 @@ urlpatterns = [
     
     path('auth/',Auth,name="auth"),
     path('login/',login,name="login"),
-    path('logout/',logout,name="log-out"),
+    path('logout/',check_out,name="log-out"),
     path('gen/',gen),
 	
 ]
